@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_line_utils.c                                   :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsherie <dsherie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:08:43 by dsherie           #+#    #+#             */
-/*   Updated: 2020/11/25 16:25:46 by dsherie          ###   ########.fr       */
+/*   Updated: 2020/11/25 17:43:11 by dsherie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,31 @@ int		ft_consist(char *str)
 	return (0);
 }
 
-void	*ft_memmove(void *destination, const void *source, size_t amount)
+void	*ft_memmove(void *dst, const void *src, unsigned int len)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
+	char	*d;
+	char	*s;
 
-	if (destination == source)
-		return (destination);
-	str1 = (unsigned char *)destination;
-	str2 = (unsigned char *)source;
-	if (str2 > str1)
-		while (amount--)
-			*str1++ = *str2++;
-	else if (str2 < str1)
-		while (amount--)
-			*(str1 + amount) = *(str2 + amount);
-	return (destination);
+	if (dst == src)
+		return (dst);
+	d = (char *)dst;
+	s = (char *)src;
+	if (s > d)
+		while (len--)
+			*d++ = *s++;
+	else if (s < d)
+		while (len--)
+			*(d + len) = *(s + len);
+	return (dst);
 }
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
+	if (!s)
+		return (0);
 	while (s[i])
 		i++;
 	return (i);
@@ -58,19 +60,18 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*arr;
-	size_t	i;
-	size_t	j;
+	char			*arr;
+	unsigned int	n;
 
-	i = -1;
-	j = -1;
-	if (!(s1 && s2) || !(arr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
-		return (NULL);
-	while (s1[++i])
-		arr[i] = s1[i];
-	while (s2[++j])
-		arr[i + j] = s2[j];
-	arr[i + j] = '\0';
+	if (!s1 && !s2)
+		return (0);
+	n = (ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!(arr = malloc(sizeof(char) * n)))
+		return (0);
+	ft_memmove(arr, s1, ft_strlen(s1));
+	ft_memmove(arr + ft_strlen(s1), s2, ft_strlen(s2));
+	arr[ft_strlen(s1) + ft_strlen(s2)] = '\0';
+	free((void *) s1);
 	return (arr);
 }
 

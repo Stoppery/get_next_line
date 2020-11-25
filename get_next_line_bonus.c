@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsherie <dsherie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 15:00:47 by dsherie           #+#    #+#             */
-/*   Updated: 2020/11/25 17:43:43 by dsherie          ###   ########.fr       */
+/*   Created: 2020/11/25 16:55:13 by dsherie           #+#    #+#             */
+/*   Updated: 2020/11/25 17:45:47 by dsherie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
+#include "get_next_line_bonus.h"
 char	*cut_nxtline(char *s)
 {
 	int		i;
@@ -44,7 +43,7 @@ char	*cut_nxtline(char *s)
 int		get_next_line(int fd, char **line)
 {
 	char		*buf;
-	static char	*save;
+	static char	*save[ARR_SIZE];
 	int			rtn;
 
 	rtn = 1;
@@ -52,16 +51,16 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (!(buf = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
-	while (!ft_consist(save) && rtn != 0)
+	while (!ft_consist(save[fd]) && rtn != 0)
 	{
 		if ((rtn = read(fd, buf, BUFFER_SIZE)) == -1)
 			return (-1);
 		buf[rtn] = '\0';
-		save = ft_strjoin(save, buf);
+		save[fd] = ft_strjoin(save[fd], buf);
 	}
 	free(buf);
-	*line = ft_setline(save);
-	save = cut_nxtline(save);
+	*line = ft_setline(save[fd]);
+	save[fd] = cut_nxtline(save[fd]);
 	if (rtn == 0)
 		return (0);
 	return (1);
