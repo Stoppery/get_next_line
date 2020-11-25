@@ -6,7 +6,7 @@
 /*   By: dsherie <dsherie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:08:43 by dsherie           #+#    #+#             */
-/*   Updated: 2020/11/25 17:43:11 by dsherie          ###   ########.fr       */
+/*   Updated: 2020/11/25 17:57:39 by dsherie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*ft_memmove(void *dst, const void *src, unsigned int len)
 	return (dst);
 }
 
-int	ft_strlen(const char *s)
+int		ft_strlen(const char *s)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_memmove(arr, s1, ft_strlen(s1));
 	ft_memmove(arr + ft_strlen(s1), s2, ft_strlen(s2));
 	arr[ft_strlen(s1) + ft_strlen(s2)] = '\0';
-	free((void *) s1);
+	free((void *)s1);
 	return (arr);
 }
 

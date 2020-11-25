@@ -6,11 +6,12 @@
 /*   By: dsherie <dsherie@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 16:55:13 by dsherie           #+#    #+#             */
-/*   Updated: 2020/11/25 17:45:47 by dsherie          ###   ########.fr       */
+/*   Updated: 2020/11/25 17:56:36 by dsherie          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
 char	*cut_nxtline(char *s)
 {
 	int		i;
